@@ -55,12 +55,19 @@ class BeatBoxFragment: Fragment() {
         val binding = inflate<FragmentBeatBoxBinding>(inflater, R.layout.fragment_beat_box, container, false)
         binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), 3)
         binding.recyclerView.adapter = SoundAdapter(mBeatBox.sounds)
+        binding.settings = SettingsViewModel(mBeatBox.settings, resources)
 
         return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBeatBox = BeatBox(requireActivity())
+        retainInstance = true
+        mBeatBox = BeatBox(requireActivity(), Settings())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mBeatBox.release()
     }
 }

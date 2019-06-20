@@ -5,20 +5,9 @@ import android.content.res.AssetManager
 import android.util.Log
 import java.io.IOException
 import android.media.SoundPool
-import android.media.AudioManager
-import android.os.Build
-import android.content.res.AssetFileDescriptor
+import android.widget.Toast
 
-
-
-
-
-
-
-
-
-
-class BeatBox(context: Context) {
+open class BeatBox(private val context: Context, val settings: Settings) {
     companion object {
         private val TAG = "BeatBox"
         private val SOUNDS_FOLDER = "sample_sounds"
@@ -27,7 +16,7 @@ class BeatBox(context: Context) {
 
     private val mAssets: AssetManager = context.assets
     private val mSounds = mutableListOf<Sound>()
-    private lateinit var mSoundPool: SoundPool
+    private var mSoundPool: SoundPool
 
     val sounds
         get() = mSounds.toList()
@@ -68,9 +57,13 @@ class BeatBox(context: Context) {
         }
     }
 
-    fun play(sound: Sound) {
+    open fun play(sound: Sound) {
         sound.mSoundId?.let {
-            mSoundPool.play(it, 1.0f, 1.0f, 1, 0, 1.0f)
+            mSoundPool.play(it, 1.0f, 1.0f, 1, 0, settings.playbackSpeed / 100f)
         }
+    }
+
+    fun release() {
+        mSoundPool.release()
     }
 }
