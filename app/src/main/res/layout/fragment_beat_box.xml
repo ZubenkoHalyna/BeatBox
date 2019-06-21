@@ -17,16 +17,18 @@
                 bind:layout_constraintStart_toStartOf="parent"
                 bind:layout_constraintTop_toTopOf="parent"
                 bind:layout_constraintEnd_toEndOf="parent"
-                bind:layout_constraintBottom_toTopOf="@+id/switch1"
+                bind:layout_constraintBottom_toTopOf="@+id/playback_speed"
                 android:layout_marginBottom="8dp">
         </android.support.v7.widget.RecyclerView>
         <TextView
+                android:id="@+id/playback_speed"
                 android:text="@{settings.seekBarLbl()}"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch1"
                 android:layout_marginBottom="8dp"
-                bind:layout_constraintBottom_toTopOf="@+id/seekBar"/>
+                bind:layout_constraintBottom_toTopOf="@+id/seekBar" bind:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="8dp" bind:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"/>
         <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
